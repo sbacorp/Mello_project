@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "./variables";
+@import "./libs/normalize";
+
+body::-webkit-scrollbar {
+	width: 10px; 
+}
+body::-webkit-scrollbar-track {
+	background: #212042; 
+}
+body::-webkit-scrollbar-thumb {
+	background-color: #fff; 
+	border-radius: 4px; 
+	border: 2px solid #212042;
+}

@@ -3,8 +3,6 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { AnimatePresence, motion } from "framer-motion";
 import { useAppDispatch } from "@/store";
-import { useSelector } from "react-redux";
-import { BoardsSelector } from "@/store/slices/boards/selectors";
 import { addBoard } from "@/store/slices/boards";
 import { useState } from "react";
 type buttonProps = {
@@ -13,7 +11,6 @@ type buttonProps = {
 };
 
 function HButton(props: buttonProps) {
-	const { boards } = useSelector(BoardsSelector);
 	const dispatch = useAppDispatch();
 	const [title, setTitle] = useState("");
 	const [goal, setGoal] = useState("");
@@ -23,6 +20,7 @@ function HButton(props: buttonProps) {
 				title: title,
 				goal: goal,
 				id: "id" + Math.random().toString(16).slice(2),
+				columns:[]
 			})
 		);
 		setTitle('');
@@ -99,8 +97,9 @@ function HButton(props: buttonProps) {
 								>
 									<Dialog.Close asChild>
 										<button
+											disabled={!title.trim().length}
 											onClick={onClickAdd}
-											className="border-solid border-2 border-purple p-3 rounded-md bg-purple text-white hover:bg-transparent hover:text-purple duration-300 transition-all"
+											className="border-solid border-2 border-purple p-3 rounded-md bg-purple text-white hover:bg-transparent hover:text-purple duration-300 transition-all disabled:cursor-not-allowed disabled:bg-metal/30 disabled:border-metal/30 text-black background"
 										>
 											Создать
 										</button>

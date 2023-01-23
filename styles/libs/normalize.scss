@@ -15,7 +15,7 @@ html {
 body {
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-font-smoothing: antialiased;
-	background-color:$background;
+	background-color:black;
 }
 
 a,
@@ -26,8 +26,9 @@ h1,
 h2,
 h3,
 h4,
-h5 {
-	color: $color;
+h5, 
+div{
+	font-family: "Rubik";
 }
 
 

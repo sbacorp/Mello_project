@@ -5,7 +5,10 @@ import Meta from "./meta";
 import useScroll from "@/lib/hooks/use-scroll";
 import HButton from "../ui/hButton";
 import { AnimatePresence, motion } from "framer-motion";
-import { FADE_IN_ANIMATION_SETTINGS } from "@/lib/constants";
+import {
+	FADE_IN_ANIMATION_SETTINGS,
+	FADE_IN_ANIMATION_SETTINGS3,
+} from "@/lib/constants";
 import { useAppDispatch } from "@/store";
 import { updateBoards } from "@/store/slices/boards";
 import { useEffect, useRef } from "react";
@@ -75,7 +78,12 @@ export default function Layout({
 					</AnimatePresence>
 				</div>
 			</div>
-			<main className="w-full pt-32 bg-primary min-h-screen">{children}</main>
+			<motion.main
+				{...FADE_IN_ANIMATION_SETTINGS3}
+				className="w-full pt-32 px-16 bg-primary min-h-screen"
+			>
+				{children}
+			</motion.main>
 			<div className="absolute bg-midnight/40 w-full border-t border-gray-500 py-5 text-center">
 				<p className="text-white">
 					Project made by{" "}

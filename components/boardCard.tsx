@@ -1,4 +1,4 @@
-import { IBoard } from "@/store/slices/boards/types";
+import { IBoard } from "@/store/slices/types";
 import Link from "next/link";
 
 function BoardCard(props: IBoard) {

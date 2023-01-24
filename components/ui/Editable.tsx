@@ -6,9 +6,15 @@ interface IEditable {
 	text: string;
 	onSave: (text: string) => void;
 	defaultValue?: string;
+	classes?: string
 }
 
-const Editable: React.FC<IEditable> = ({ text, onSave, defaultValue }) => {
+const Editable: React.FC<IEditable> = ({
+	text,
+	onSave,
+	defaultValue,
+	classes,
+}) => {
 	const [isEditing, setIsEditing] = useState(false);
 	const [newText, setNewText] = useState(text);
 	useEffect(() => {
@@ -33,7 +39,7 @@ const Editable: React.FC<IEditable> = ({ text, onSave, defaultValue }) => {
 			input.select();
 		}
 	}, [isEditing]);
-	const handleSave = () => {		
+	const handleSave = () => {
 		onSave(newText);
 		setIsEditing(false);
 	};
@@ -42,7 +48,7 @@ const Editable: React.FC<IEditable> = ({ text, onSave, defaultValue }) => {
 		setIsEditing(false);
 	};
 	return (
-		<div className=" bg-transparent rounded p-2">
+		<div className=" bg-transparent rounded py-2">
 			{isEditing ? (
 				<AnimatePresence>
 					<motion.div {...FADE_IN_ANIMATION_SETTINGS2}>
@@ -53,12 +59,12 @@ const Editable: React.FC<IEditable> = ({ text, onSave, defaultValue }) => {
 						/>
 						<button
 							className="ml-1 border-2 bg-green border-solid border-green text-white p-2 rounded mr-2 hover:bg-transparent transition-all duration-200"
-							onClick={()=>handleSave()}
+							onClick={() => handleSave()}
 						>
 							Save
 						</button>
 						<button
-							className=" ml-1 border-2 bg-purple border-solid border-purple text-white p-2 rounded mr-2 hover:bg-transparent transition-all duration-200"
+							className="  border-2 bg-purple border-solid border-purple text-white p-2 rounded hover:bg-transparent transition-all duration-200"
 							onClick={handleCancel}
 						>
 							Cancel
@@ -67,7 +73,7 @@ const Editable: React.FC<IEditable> = ({ text, onSave, defaultValue }) => {
 				</AnimatePresence>
 			) : (
 				<p
-					className="cursor-pointer text-base text-white w-fit hover:bg-white/30 focus:bg-white/30 p-2 rounded"
+					className={`cursor-pointer text-lg text-center text-white w-fit hover:bg-white/30 focus:bg-white/30 p-2 rounded ${classes}`}
 					onClick={() => setIsEditing(true)}
 				>
 					{text || defaultValue || "Enter Text"}

@@ -10,7 +10,7 @@ module.exports = {
         '90': '90vw',
       },
       minWidth:{
-        '80': '320px',
+        '80': '340px',
       },
       height: {
         '85': '85vh',

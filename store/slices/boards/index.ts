@@ -44,10 +44,19 @@ export const BoardsSlice = createSlice({
 			);
 			if (board) {
 				board.columns.push({
-                    ...action.payload,
-                })
+					...action.payload,
+				});
 			}
 		},
+		addTask(state, action: PayloadAction<IColumn>) {
+			const board = state.boards.find(
+				(board) => board.id === action.payload.boardId
+			);
+			if (board) {
+				
+			}
+		},
+
 		moveItem: (state, action) => {
 			const board = state.boards.find(
 				(board) => board.id === action.payload.id

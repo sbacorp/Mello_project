@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { GetServerSideProps } from "next";
+import CreateColumn from "@/components/CreateColumn";
 
 const Board = () => {
 	const router = useRouter();
@@ -30,25 +31,26 @@ const Board = () => {
 			setValues(board);
 		}
 	}, [board]);
+
 	const updateCTitle = (value: string) => {
-		setValues({ ...values, title: value });
+		if (values) setValues({ ...values, title: value });
 		dispatch(updateTitle({ id, value }));
 	};
-	const updateCGoal = (value: string) => {
-		setValues({ ...values, goal: value });
-		console.log(values);
 
+	const updateCGoal = (value: string) => {
+		if (values) setValues({ ...values, goal: value });
 		dispatch(updateGoal({ id, value }));
 	};
+
 	const handleDrop = (event: DragEvent, toColumnId: string) => {
 		event.preventDefault();
-		const itemId = event.dataTransfer.getData("text");
+		const itemId = event.dataTransfer!.getData("text");
 		const fromColumnId = (event.target as HTMLElement).getAttribute(
 			"data-column-id"
 		);
 		dispatch(moveItem({ itemId, fromColumnId, toColumnId }));
 	};
-	const createColumn = () => {
+	const createColumnF = () => {
 		if (board)
 			try {
 				dispatch(
@@ -73,8 +75,8 @@ const Board = () => {
 				<div className="">
 					<div className="header flex gap-10">
 						<div>
-							<label htmlFor="ctitle" className="text-white text-md ">
-								Название :
+							<label htmlFor="ctitle" className="text-white text-lg ">
+								Название:
 							</label>
 							<Editable
 								defaultValue="Введите название"
@@ -83,7 +85,7 @@ const Board = () => {
 							/>
 						</div>
 						<div className="gap-5">
-							<label htmlFor="goal" className=" text-white text-md">
+							<label htmlFor="goal" className=" text-white text-lg">
 								Цель:
 							</label>
 							<Editable
@@ -92,21 +94,19 @@ const Board = () => {
 								onSave={updateCGoal}
 							/>
 						</div>
-						<div className="create-col">
-							<button onClick={createColumn}>колонка</button>
-						</div>
 					</div>
 
-					<div className="columns min-h-80 flex gap-9 overflow-scroll overflow-y-hidden scroll-smooth snap-always snap-mandatory">
+					<div className="columns scroll min-h-80 flex gap-9 overflow-scroll overflow-y-hidden scroll-smooth  snap-mandatory">
 						{values && values.columns ? (
 							board.columns.map((column) => (
 								<div
-									className=" min-w-80 h-11  bg-white rounded mb-6"
+									className=" min-w-80 h-16 bg-white rounded"
 									key={column.id}
 									data-column-id={column.id}
 									onDrop={(e) => handleDrop(e, column.id)}
 									onDragOver={(e) => e.preventDefault()}
 								>
+									<Editable text={column.title} onSave={} />
 									{column.tasks &&
 										column.tasks.map((task) => (
 											<div
@@ -125,6 +125,7 @@ const Board = () => {
 						) : (
 							<div className="text-white text-3xl">пусто</div>
 						)}
+						<CreateColumn createColumnF={createColumnF} />
 					</div>
 				</div>
 			)}
